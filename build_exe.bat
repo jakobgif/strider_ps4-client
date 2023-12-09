@@ -10,7 +10,7 @@ REM Change to the source folder
 cd %SOURCE_FOLDER%
 
 REM Run PyInstaller to build the exe inside the build folder
-py -m PyInstaller --onefile --distpath %BUILD_FOLDER% strider_ps4-client.py
+py -m PyInstaller --onefile --distpath %BUILD_FOLDER% strider_ps4-client.py --icon icon.ico
 
 REM Check if PyInstaller was successful
 if not exist %BUILD_FOLDER%\%EXE_NAME% (
@@ -19,8 +19,8 @@ if not exist %BUILD_FOLDER%\%EXE_NAME% (
 )
 
 REM Copy the exe back to the source folder
-copy /Y %BUILD_FOLDER%\%EXE_NAME% %SOURCE_FOLDER%
+move /Y %BUILD_FOLDER%\%EXE_NAME% %SOURCE_FOLDER%
 
-echo Build successful! The exe is located in the build folder.
+echo Build successful!
 
 endlocal
