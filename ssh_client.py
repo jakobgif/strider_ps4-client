@@ -1,10 +1,7 @@
 import paramiko
 import time
 
-command = "-av"
-host = "192.168.0.81"
-username = "student"
-password = "student"
+import loginData as login
 
 def ssh_connect():
     print("Trying to connect to Strider")
@@ -13,7 +10,7 @@ def ssh_connect():
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
-        ssh.connect(host, username=username, password=password)
+        ssh.connect(login.host, username=login.username, password=login.password)
 
         if ssh.get_transport().is_active():
             print("Connection successful.")
