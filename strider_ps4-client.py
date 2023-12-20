@@ -8,6 +8,9 @@ print()
 import ssh_client as ssh
 ssh_connection, ssh_channel = ssh.ssh_connect()
 
+if ssh_connection == None: #connection not sucessful
+    quit()
+
 
 import pygame
 pygame.init()
