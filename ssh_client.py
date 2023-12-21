@@ -21,11 +21,11 @@ def ssh_connect():
             output = channel.recv(1000).decode('utf-8')
 
             # Send the command to the CLI
-            channel.send('/home/student/EmbSys/build/spider-strider/CLI\n')
+            channel.send('cd Desktop/spider-strider/ && ./Strider\n') #start strider applciation
             output = channel.recv(1000).decode('utf-8')
             time.sleep(2)
 
-            channel.send('--apiversion\r\n')
+            channel.send('-str\r\n')
             time.sleep(2)
             output = channel.recv(1000).decode('utf-8')
             print(output)

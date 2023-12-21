@@ -20,7 +20,7 @@ controller.init()
 
 def handle_button_press(button):
     switch = {
-        11: "--version",
+        11: "--devinfo",
         12: "Backwards",
         13: "Left",
         14: "Right",
