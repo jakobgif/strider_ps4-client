@@ -21,7 +21,7 @@ def ssh_connect():
             output = channel.recv(1000).decode('utf-8')
 
             # Send the command to the CLI
-            channel.send('cd Desktop/spider-strider/ && ./Strider\n') #start strider applciation
+            channel.send('cd Desktop/spider-strider/ && sudo ./Strider.exe\n') #start strider applciation
             output = channel.recv(1000).decode('utf-8')
             time.sleep(2)
 
