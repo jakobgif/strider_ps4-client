@@ -8,11 +8,12 @@ print()
 import ssh_client as ssh
 ssh_connection, ssh_channel = ssh.ssh_connect()
 
-if ssh_connection == None: #connection not sucessful
-    quit()
+#if ssh_connection == None: #connection not sucessful
+#    quit()
 
 
 import pygame
+import math
 pygame.init()
 
 controller = pygame.joystick.Joystick(0)
@@ -20,10 +21,18 @@ controller.init()
 
 def handle_button_press(button):
     switch = {
-        11: "--devinfo",
-        12: "Backwards",
-        13: "Left",
-        14: "Right",
+        0: "-stop",
+        1: "--stretch",
+        2: "--idle",
+        3: "--raise -100",
+
+        11: "-fw",
+        12: "-bw",
+        13: "-left",
+        14: "-rght",
+
+        10: "--raise 10",
+        9: "--raise -10"
         # Add more buttons as needed
     }
 
@@ -34,7 +43,24 @@ def handle_button_press(button):
         # Call your function to send the command here
         ssh.send_command(command, ssh_channel)
     else:
-        print("Unknown Button Pressed")
+        print(f"Unknown Button Pressed: {button}")
+
+joystick_threshold = 0.9  # You can adjust this value based on your needs
+
+
+
+def handle_joystick_event(axis_values):
+    x, y = axis_values
+
+    angle = math.degrees(math.atan2(y, x))
+    magnitude = math.sqrt(x**2 + y**2)
+
+    if magnitude > joystick_threshold:
+        rotation_degrees = angle  # You can adjust this based on your requirements
+        command = f"--rotate {rotation_degrees}"
+        print(f"Sending command: {command}")
+        # Call your function to send the command here
+        # ssh.send_command(command, ssh_channel)
 
 
 try:
@@ -42,11 +68,16 @@ try:
 
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.JOYBUTTONDOWN:
+            if event.type == pygame.JOYAXISMOTION:
+                if event.axis == 0:  # Assuming X-axis for left joystick
+                    #handle_joystick_event((event.value, controller.get_axis(1)))  # Y-axis
+                    None
+            elif event.type == pygame.JOYBUTTONDOWN:
                 handle_button_press(event.button)
             elif event.type == pygame.JOYBUTTONUP:
                 None
-                #print("Button Released:", event.button)
+                # print("Button Released:", event.button)
+            
 
 except KeyboardInterrupt:
     ssh.ssh_close(ssh_connection)
