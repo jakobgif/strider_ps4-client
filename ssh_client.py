@@ -25,7 +25,7 @@ def ssh_connect():
             output = channel.recv(1000).decode('utf-8')
             time.sleep(2)
 
-            channel.send('-str\r\n')
+            channel.send('-dev\r\n')
             time.sleep(2)
             output = channel.recv(1000).decode('utf-8')
             print(output)

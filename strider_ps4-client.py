@@ -60,7 +60,7 @@ def handle_left_joystick_event(axis_values):
         
         angle_difference = angle - prev_angle
         
-        if abs(angle_difference) > 10:
+        if abs(angle_difference) > 45:
             rotation_direction = "cw" if angle_difference > 0 else "ccw"
 
             command = f"-t{rotation_direction} 1"
@@ -74,7 +74,7 @@ def handle_left_joystick_event(axis_values):
 last_command = ""
 def handle_right_joystick_event(axis_values):
     global last_command
-    
+
     x, y = axis_values
 
     magnitude = math.sqrt(x**2 + y**2)
